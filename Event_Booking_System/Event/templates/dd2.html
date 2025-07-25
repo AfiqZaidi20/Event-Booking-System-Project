@@ -1,0 +1,174 @@
+views.py
+
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from .models import User  # or your extended user model
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
+from django.contrib.auth import login
+
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+
+
+
+
+
+
+def homecon(request):
+    return render(request, 'homecon.html', {'user': request.user})
+
+
+
+# Create your views here.
+
+def homepage(request):
+    return render(request, 'homepage.html')
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+
+            # Redirect based on role
+            if user.role == 'congregate_member':
+                return redirect('homecon.html')
+            elif user.role == 'mosque_community':
+                return redirect('homemos.html')
+            elif user.role == 'head_mosque':
+                return redirect('homehead.html')
+            else:
+                return redirect('homepage.html')
+
+        else:
+            messages.error(request, 'Invalid username or password')
+
+    return render(request, 'login.html')
+
+
+def signup(request):
+    if request.method == 'POST':
+        full_name = request.POST['full_name']
+        phone = request.POST['phone']
+        role = request.POST['role']
+        username = request.POST['username']
+        password = request.POST['password']
+
+        # Create user
+        user = User.objects.create_user(
+            username=username,
+            password=password,
+            full_name=full_name,
+            phone=phone,
+            role=role
+        )
+        user.save()
+
+        login(request, user)
+
+        if user.role == 'congregate_member':
+            return redirect('homecon.html')
+        elif user.role == 'mosque_community':
+            return redirect('homemos.html')
+        elif user.role == 'head_mosque':
+            return redirect('homehead.html')
+    return render(request, 'signup.html')
+
+
+
+def homecon(request):
+    user = request.user  # the currently logged-in user
+    context = {
+        'username': user.username,
+    }
+    return render(request, 'homecon.html', context)
+
+def homemos(request):
+    return render(request, 'homemos.html')
+
+def homehead(request):
+    return render(request, 'homehead.html')
+
+def eventBooking(request):
+    return render(request, 'eventBooking.html')
+
+def event_schedule(request):
+    return render(request, 'event_schedule.html')
+
+def booking_report(request):
+    return render(request, 'booking_report.html')
+
+def event_schedule1(request):
+    return render(request, 'event_schedule1.html')
+
+def payment(request):
+    return render(request, 'payment.html')
+
+def event_schedule2(request):
+    return render(request, 'event_schedule2.html')
+
+
+def event_schedule(request):
+    events = Event.objects.all()
+    return render(request, 'event_schedule.html', {'events': events})
+
+def add_event(request):
+    if request.method == 'POST':
+        form = EventForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('event_schedule')
+    else:
+        form = EventForm()
+    return render(request, 'add_event.html', {'form': form})
+
+def edit_event(request, event_id):
+    event = get_object_or_404(Event, pk=event_id)
+    if request.method == 'POST':
+        form = EventForm(request.POST, instance=event)
+        if form.is_valid():
+            form.save()
+            return redirect('event_schedule')
+    else:
+        form = EventForm(instance=event)
+    return render(request, 'edit_event.html', {'form': form})
+
+def delete_event(request, event_id):
+    event = get_object_or_404(Event, pk=event_id)
+    event.delete()
+    return redirect('event_schedule')
+
+def payment2(request):
+    return render(request, 'payment2.html')
+
+def congregate_list(request):
+    return render(request, 'congregate_list.html')
+
+
+
+
+def book_event(request):
+    if request.method == 'POST':
+        event_name = request.POST['event_name']
+        event_date = request.POST['event_date']
+        event_time = request.POST['event_time']
+        booking_date = request.POST['booking_date']
+
+        # Save to database here (if needed)
+
+        context = {
+            'event_name': event_name,
+            'event_date': event_date,
+            'event_time': event_time,
+            'booking_date': booking_date,
+        }
+
+        return render(request, 'event_schedule1.html', context)
+
+

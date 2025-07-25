@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage - Surau Al-Mahdi</title>
+    <style>
+    * {
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+    }
+
+    body {
+        margin: 0;
+        background-color: #1a4a7a;
+        color: #ffffff;
+        padding-top: 150px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header {
+        background-color: #192027;
+        padding: 20px 40px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 1.8em;
+    }
+
+    nav a {
+        color: white;
+        margin-left: 20px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .welcome-message {
+        text-align: center;
+        font-size: 20px;
+        margin-top: 20px;
+    }
+
+    .content {
+        text-align: center;
+        padding: 40px;
+    }
+
+    .content h2 {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    .content p {
+        font-size: 16px;
+        max-width: 600px;
+        margin: auto;
+    }
+
+    footer {
+        background-color: #192027;
+        text-align: center;
+        padding: 15px;
+        font-size: 12px;
+        color: white;
+        width: 100%;
+        margin-top: auto;
+    }
+
+    .footer-social img {
+        height: 18px;
+        margin: 0 5px;
+    }
+    </style>
+</head>
+<body>
+
+<header>
+    <div style="display: flex; align-items: center; gap: 20px;">
+        <img src="{% static 'logo1.jpg' %}" alt="Mosque Logo" height="70px">
+        <h1>Surau Al-Mahdi</h1>
+    </div>
+    <nav>
+        <a href="{% url 'homepage' %}">Homepage</a>
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'signup' %}">Sign up</a>
+        {% endif %}
+    </nav>
+</header>
+
+<!-- 👇 Welcome Message -->
+<div class="welcome-message">
+    {% if request.user.is_authenticated %}
+        <p>Welcome, <strong>{{ request.user.username }}</strong>!</p>
+    {% else %}
+        <p>Welcome to Surau Al-Mahdi’s Event Management System.</p>
+    {% endif %}
+</div>
+
+<!-- 👇 Main Content -->
+<div class="content">
+    <h2>Discover & Book Events</h2>
+    <p>
+        View the upcoming events at Surau Al-Mahdi, make bookings, manage your participation, and stay connected with the mosque community.
+        Whether you're a congregate member, part of the mosque committee, or the head administrator, this system helps streamline all mosque activities.
+    </p>
+</div>
+
+<!-- 👇 Footer -->
+<footer>
+    <h2>Surau Al-Mahdi</h2>
+    <p>Jalan Metafasa U16/4, Taman Bukit Subang, 40160 Shah Alam, Selangor</p>
+    <p>+6010 985 6795 | +6012 396 8657</p>
+    <div class="footer-social">
+        <a href="https://www.facebook.com/SurauAlMahdiTamanBukitSubang">
+            <img src="{% static 'facebook.png' %}" alt="Facebook">
+        </a>
+        <a href="https://www.instagram.com/">
+            <img src="{% static 'ig.png' %}" alt="Instagram">
+        </a>
+        <a href="https://x.com/?lang=en">
+            <img src="{% static 'x.png' %}" alt="X">
+        </a>
+    </div>
+</footer>
+
+</body>
+</html>

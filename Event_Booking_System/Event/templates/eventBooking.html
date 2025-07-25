@@ -1,0 +1,161 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Event Booking</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a4a7a;
+            color: #ffffff;
+            padding-top: 150px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center;
+        }
+        header {
+            background-color: #192027;
+            padding: 20px 40px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+        header p {
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .section {
+            padding: 80px 40px 80px 40px;
+            background-color: white;
+            color: black;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 50px;
+            border-radius: 8px;
+        }
+        .section h2 {
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 40px;
+            color: black;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: black;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            font-size: 1em;
+        }
+        button {
+            width: 100%;
+            background-color: #27ae60;
+            color: white;
+            padding: 12px 0;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #219150;
+        }
+        .footer {
+            background-color: #192027;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            width: 100%;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+        .footer-social img {
+            height: 20px;
+            margin: 0 8px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <img src="{% static 'logo1.jpg' %}" alt="Mosque Logo" height="70px" />
+            <h1>Surau Al-Mahdi</h1>
+        </div>
+        <div style="color: white; text-align: right; margin-right: 20px;">
+            <p style="margin: 0; font-weight: bold;">{{ username }}</p>
+            <p style="margin: 0; font-size: 0.9em;">Congregate Member</p>
+        </div>
+        <nav>
+            <a href="{% url 'homecon' %}">Homepage</a>
+            <a href="{% url 'homecon' %}">Back</a>
+            <a href="{% url 'homepage' %}">Log Out</a>
+        </nav>
+    </header>
+    
+
+    <section class="section" id="event_booking">
+        <h2>Event Booking Form</h2>
+        <form action="{% url 'eventBooking' %}" method="POST">
+        {% csrf_token %}
+        
+        <label for="event_name">Event Name:</label>
+        <input type="text" id="event_name" name="event_name" required>
+
+        <label for="event_date">Event Date:</label>
+        <input type="date" id="event_date" name="event_date" required>
+
+        <label for="event_time">Event Time:</label>
+        <input type="time" id="event_time" name="event_time" required>
+
+        <label for="booking_date">Booking Date:</label>
+        <input type="date" id="booking_date" name="booking_date" required>
+
+        <button type="submit">Book Event</button>
+        </form>
+
+    </section>
+
+    <footer class="footer" id="contact">
+        <h2>Surau Al-Mahdi</h2>
+        <p>Jalan Metafasa U16/4, Taman Bukit Subang, 40160 Shah Alam, Selangor</p>
+        <p>+6010 985 6795 | +6012 396 8657</p>
+        <div class="footer-social">
+            <a href="https://www.facebook.com/SurauAlMahdiTamanBukitSubang"><img
+                src="{% static 'facebook.png' %}" alt="Facebook" /></a>
+            <a href="https://www.instagram.com/"><img
+                src="{% static 'ig.png' %}" alt="Instagram" /></a>
+            <a href="https://x.com/?lang=en"><img
+                src="{% static 'x.png' %}" alt="X" /></a>
+        </div>
+    </footer>
+</body>
+</html>
