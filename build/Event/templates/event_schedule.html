@@ -1,0 +1,173 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Schedule</title>
+    <style>
+    * {
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #1a4a7a;
+        color: #ffffff;
+        padding-top: 150px; /* Adjust if header height changes */
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        align-items: center;
+    }
+
+    header {
+        background-color: #192027;
+        padding: 20px 40px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 1.8em;
+    }
+
+    nav a {
+        color: white;
+        margin-left: 20px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .section {
+        padding: 60px 40px;
+        background-color: white;
+        padding-bottom: 80px;
+        padding-top: 80px;
+        width: 100%;
+        color: black;
+    }
+
+    .section h3 {
+        font-size: 2em;
+        text-align: center;
+        margin-bottom: 40px;
+        color: black;
+    }
+
+    table {
+        color: black;
+        text-align: center;
+        width: 100%;
+    }
+
+    .btn-primary {
+        margin-top: 20px;
+        padding: 12px 25px;
+        background-color: #27ae60;
+        color: white;
+        border: none;
+        font-size: 1em;
+        cursor: pointer;
+        border-radius: 6px;
+    }
+
+    .btn-primary1 {
+        margin-top: 20px;
+        padding: 12px 25px;
+        background-color: #ae2727;
+        color: white;
+        border: none;
+        font-size: 1em;
+        cursor: pointer;
+        border-radius: 6px;
+    }
+
+    .btn-primary2 {
+        margin-top: 20px;
+        padding: 12px 25px;
+        background-color: #1a1a1a;
+        color: white;
+        border: none;
+        font-size: 1em;
+        cursor: pointer;
+        border-radius: 6px;
+    }
+
+    .footer {
+        background-color: #192027;
+        text-align: center;
+        padding: 20px;
+        margin-top: 40px;
+        width: 100%;
+    }
+
+    .container {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .footer-social img {
+        height: 20px;
+        margin: 0 8px;
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <img src="{% static 'logo1.jpg' %}" alt="Mosque Logo" height="70px;">
+            <h1 style="margin: 0;">Surau Al-Mahdi</h1>
+        </div>
+        <nav>
+            <a href="{% url 'homehead' %}">Homepage</a>
+            <a href="{% url 'homehead' %}">Back</a>
+            <a href="{% url 'homepage' %}">Logout</a>
+        </nav>
+    </header>
+
+    <section class="section" id="events">
+        <h3>Approve Event Registration</h3>
+        <table border="1" cellspacing="0" cellpadding="8">
+            <tr>
+                <th>Step</th>
+                <th>Actor</th>
+                <th>Action</th>
+                <th>System Response</th>
+                <th>Approval Status</th>
+                <th>Approve</th>
+                <th>Reject</th>
+            </tr>
+            <!-- Table rows of use-case steps -->
+            <!-- ... -->
+        </table>
+        <a href="{% url 'event_schedule' %}"><button class="btn-primary2">Print Report</button></a>
+    </section>
+
+    <footer class="footer" id="contact">
+        <h2>Surau Al-Mahdi</h2>
+        <p>Jalan Metafasa U16/4, Taman Bukit Subang, 40160 Shah Alam, Selangor</p>
+        <p>+6010 985 6795 | +6012 396 8657</p>
+        <div class="footer-social">
+            <a href="https://www.facebook.com/SurauAlMahdiTamanBukitSubang"><img
+                src="{% static 'facebook.png' %}" alt="Facebook" style="height: 20px; margin-right: 8px;"></a>
+            <a href="https://www.instagram.com/"><img
+                src="{% static 'ig.png' %}" alt="Instagram" style="height: 20px;"></a>
+            <a href="https://x.com/?lang=en"><img
+                src="{% static 'x.png' %}" alt="X" style="height: 20px; margin-right: 8px;"></a>
+        </div>
+    </footer>
+</body>
+</html>
